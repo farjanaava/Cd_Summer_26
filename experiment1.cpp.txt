@@ -1,0 +1,173 @@
+#include <iostream>
+using namespace std;
+
+void checkNumeric(string input)
+{
+    bool isNumeric = true;
+
+    for(int i = 0; i < input.length(); i++)
+    {
+        if(input[i] < 48 || input[i] > 57)
+        {
+            isNumeric = false;
+            break;
+        }
+    }
+
+    if(isNumeric)
+        cout << "Numeric Constant" << endl;
+    else
+        cout << "Not A Numeric Constant" << endl;
+}
+
+void checkOperator(string input)
+{
+    int b = 0;
+
+    for(int i = 0; i < input.length(); i++)
+    {
+        if(input[i] == '+' || input[i] == '-' ||
+           input[i] == '*' || input[i] == '/' ||
+           input[i] == '%' || input[i] == '=')
+        {
+            b++;
+            cout << "Operator " << b << " : " << input[i] << endl;
+        }
+    }
+}
+
+void checkComment(string str)
+{
+    if(str.length() >= 2)
+    {
+        if(str[0] == 47 && str[1] == 47)
+            cout << "Single Line Comment" << endl;
+
+        else if(str[0] == 47 && str[1] == 42)
+            cout << "Multi Line Comment" << endl;
+
+        else
+            cout << "Not a Comment" << endl;
+    }
+    else
+    {
+        cout << "Not a Comment" << endl;
+    }
+}
+
+void checkIdentifier(string str)
+{
+    int valid = 1;
+
+    if(!((str[0] >= 65 && str[0] <= 90) ||
+         (str[0] >= 97 && str[0] <= 122) ||
+          str[0] == 95))
+    {
+        valid = 0;
+    }
+
+    for(int i = 1; str[i] != '\0'; i++)
+    {
+        if(!((str[i] >= 65 && str[i] <= 90) ||
+             (str[i] >= 97 && str[i] <= 122) ||
+             (str[i] >= 48 && str[i] <= 57) ||
+              str[i] == 95))
+        {
+            valid = 0;
+            break;
+        }
+    }
+
+    if(valid)
+        cout << "Valid Identifier" << endl;
+    else
+        cout << "Not a Valid Identifier" << endl;
+}
+
+void average(int arr[], int n)
+{
+    int sum = 0;
+    float avg;
+
+    for(int i = 0; i < n; i++)
+    {
+        sum += arr[i];
+    }
+
+    avg = (float)sum / n;
+
+    cout << "Average = " << avg << endl;
+}
+
+void findMinMax(int arr[], int n)
+{
+    int max = arr[0], min = arr[0];
+
+    for(int i = 1; i < n; i++)
+    {
+        if(arr[i] > max)
+            max = arr[i];
+
+        if(arr[i] < min)
+            min = arr[i];
+    }
+
+    cout << "Maximum value = " << max << endl;
+    cout << "Minimum value = " << min << endl;
+}
+
+
+void fullName(string first, string last)
+{
+    string full = first + " " + last;
+    cout << "Full name = " << full << endl;
+}
+
+int main()
+{
+    string input;
+    cout << "Enter a text: ";
+    cin >> input;
+    checkNumeric(input);
+
+
+    cout << "\nEnter expression: ";
+    cin >> input;
+    checkOperator(input);
+
+
+    cin.ignore();
+    string comment;
+    cout << "\nEnter comment: ";
+    getline(cin, comment);
+    checkComment(comment);
+
+
+    string id;
+    cout << "\nEnter identifier: ";
+    cin >> id;
+    checkIdentifier(id);
+
+
+    int n, arr[100];
+    cout << "\nEnter number of elements: ";
+    cin >> n;
+
+    cout << "Enter array elements: ";
+    for(int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    average(arr, n);
+
+    findMinMax(arr, n);
+    string first, last;
+    cout << "\nEnter first name: ";
+    cin >> first;
+    cout << "Enter last name: ";
+    cin >> last;
+
+    fullName(first, last);
+
+    return 0;
+}
